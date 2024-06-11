@@ -20,7 +20,9 @@ public class FriendFinder {
 	 * who is taking the same classes as that student.
 	 */
 	public Set<String> findClassmates(Student theStudent) {
-		
+		if (theStudent == null) {
+			throw new IllegalArgumentException("The student's name can't be null");
+		}
 		String name = theStudent.getName();
 		
 		// find the classes that this student is taking
@@ -36,11 +38,24 @@ public class FriendFinder {
 			// list all the students in the class
 			List<Student> students = studentsDataSource.getStudents(myClass);
 			
+			//check for null 
+			if (students == null) {
+				throw new IllegalStateException("The list of students is null");
+			}
 			for (Student otherStudent : students) {
+				//ignore null students 
+				
+				if (otherStudent == null || otherStudent.getName() == null) {
+					continue;
+				}
 				
 				// find the other classes that they're taking
 				List<String> theirClasses = classesDataSource.getClasses(otherStudent.getName());
-							
+				//check if their Classes is null 
+				if (theirClasses == null) {
+					throw new IllegalStateException("The list of classes is null");
+				}
+
 				// see if all of the classes that they're taking are the same as the ones this student is taking
 				boolean allSame = true;
 				for (String c : myClasses) {
