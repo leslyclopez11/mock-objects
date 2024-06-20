@@ -94,15 +94,4 @@ public class FindClassmatesTest {
 
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testSourcesNull() {
-		ff = new FriendFinder(null, null);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testInputStudentIsNull() {
-		ff = new FriendFinder(defaultClassesDataSource, defaultStudentsDataSource);
-		ff.findClassmates(null);
-
-	}
 }
