@@ -10,6 +10,9 @@ public class FriendFinder {
 	protected StudentsDataSource studentsDataSource;
 	
 	public FriendFinder(ClassesDataSource cds, StudentsDataSource sds) {
+		if (cds == null || sds == null) {
+			throw new IllegalArgumentException("Data sources can't be null");
+		}
 		classesDataSource = cds;
 		studentsDataSource = sds;
 	}
@@ -24,7 +27,9 @@ public class FriendFinder {
 			throw new IllegalArgumentException("The student's name can't be null");
 		}
 		String name = theStudent.getName();
-		
+		if (name == null || name.isEmpty()) {
+			throw new IllegalStateException("Student name can't be null or empty");
+		}
 		// find the classes that this student is taking
 		List<String> myClasses = classesDataSource.getClasses(name);
 		if (myClasses == null) {
